@@ -1,0 +1,80 @@
+﻿# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: sinhala
+  name: 僧伽罗文
+  version: "0.1"
+  author:
+    - Liu Hongwei
+  description: |
+    Sinhala in Transliteration
+    使用拉丁字母输入僧伽罗语
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 僧伽罗文, 西文 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+
+speller:
+  alphabet: 'ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba`'
+  delimiter: "'"
+  algebra:
+    - xform/"^([aAieou].*)$"/"`$1"/
+    - derive/v/w/
+    - derive/T/t`/
+    - derive/D/d`/
+    - derive/L/l`/
+    - derive/A/a`/
+    - derive/N/n`/
+    - derive/Q/q`/
+
+translator:
+  dictionary: sinhala
+  preedit_format:
+    - xlit/ADTNLQxw/æḍṭṇḷhśv/
+    - xform/q`/h/
+    - xform/aa/ā/
+    - xform/ee/ē/
+    - xform/oo/ō/
+    - xform/ii/ī/
+    - xform/uu/ū/
+    - xform/ææ/ǣ/
+    - xform/AA/ǣ/
+    - xform/sh/ṣ/
+    - xform/d`/ḍ/
+    - xform/t`/ṭ/
+    - xform/n`/ṇ/
+    - xform/l`/ḷ/
+    - xform/a`a`/ǣ/
+    - xform/a`/æ/
+    - xform/(^|[ '])q([aAeiou])/$1-$2/
+    - xform/q/ṅ/
+
+
+punctuator:
+    use_space: true
+    half_shape: &punct
+        ' ' : { commit: ' ' }
+    full_shape: *punct
+
+menu:
+ 
+  page_size: 10 #選單每䈎顯示個數
